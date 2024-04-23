@@ -72,7 +72,13 @@ void ALAPSTUDIOSSuegraCharacter::BeginPlay()
         RandomInversion = GetRandomFloatBetween10And45();
         FString RandomInversionString = FString::SanitizeFloat(RandomInversion);
         //GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %s"), *RandomInversionString));
-        InvertMovement1();
+        //si es true damos accceso a que haga el inverse
+        if(bIsMovementInverted)
+        {
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %s"), *RandomInversionString));
+            InvertMovement1();
+        }
+        
     }
     
    
@@ -120,12 +126,28 @@ void ALAPSTUDIOSSuegraCharacter::Move(const FInputActionValue& Value)
 
         if (Tags.Num() > 0 && Tags[0] == FName(TEXT("Man"))) 
         {
-            float ForwardInput = !bIsMovementInverted ? -MovementVector.Y : MovementVector.Y;
-            float RightInput = !bIsMovementInverted ? -MovementVector.X : MovementVector.X;
+            //si es true se invierte
+            if(bIsMovementInverted)
+            {
+                float ForwardInput = -MovementVector.Y ;
+                float RightInput =  -MovementVector.X;
 
-            // add movement 
-            AddMovementInput(ForwardDirection, ForwardInput);
-            AddMovementInput(RightDirection, RightInput);
+                // add movement 
+                AddMovementInput(ForwardDirection, ForwardInput);
+                AddMovementInput(RightDirection, RightInput);
+            }
+            //si es false no se invierte
+            else
+            {
+
+                float ForwardInput =  MovementVector.Y;
+                float RightInput =  MovementVector.X;
+
+                // add movement 
+                AddMovementInput(ForwardDirection, ForwardInput);
+                AddMovementInput(RightDirection, RightInput);
+                
+            }
         }
         else if(Tags.Num() > 0 && Tags[0] == FName(TEXT("Woman")))
         {
@@ -155,16 +177,19 @@ void ALAPSTUDIOSSuegraCharacter::Look(const FInputActionValue& Value)
 
 void ALAPSTUDIOSSuegraCharacter::InvertMovement1()
 {
-    RevertMovementInversion();
+    bIsMovementInverted = true;
     GetWorldTimerManager().SetTimer(MovementRevertTimerHandle, this, &ALAPSTUDIOSSuegraCharacter::InvertMovement2,  RandomInversion, false, RandomInversion);
+    FString RandomInversionString = FString::SanitizeFloat(RandomInversion);
+    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %s"), *RandomInversionString));
     
 }
 
 void ALAPSTUDIOSSuegraCharacter::InvertMovement2()
 {
-    RevertMovementInversion();
+    bIsMovementInverted = false;
     GetWorldTimerManager().SetTimer(MovementRevertTimerHandle, this, &ALAPSTUDIOSSuegraCharacter::InvertMovement1,  RandomInversion, false, RandomInversion);
-    
+    FString RandomInversionString = FString::SanitizeFloat(RandomInversion);
+    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %s"), *RandomInversionString));
 }
 
 void ALAPSTUDIOSSuegraCharacter::RevertMovementInversion()
