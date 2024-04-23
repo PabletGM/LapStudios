@@ -71,7 +71,7 @@ protected:
 
     float RandomInversion;
 
-    UPROPERTY(EditAnywhere) bool bIsMovementInverted = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bIsMovementInverted = false;
 
 
 protected:

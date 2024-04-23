@@ -71,7 +71,7 @@ void ALAPSTUDIOSSuegraCharacter::BeginPlay()
     {
         RandomInversion = GetRandomFloatBetween10And45();
         FString RandomInversionString = FString::SanitizeFloat(RandomInversion);
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %s"), *RandomInversionString));
+        //GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %s"), *RandomInversionString));
         InvertMovement1();
     }
     
@@ -176,8 +176,8 @@ void ALAPSTUDIOSSuegraCharacter::RevertMovementInversion()
 {
     RandomInversion = GetRandomFloatBetween10And45();
     
-    // Convertir el valor de RandomInversion a FString para mostrarlo en pantalla
-   GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %f"), RandomInversion));
+   // // Convertir el valor de RandomInversion a FString para mostrarlo en pantalla
+   //GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("randomValue: %f"), RandomInversion));
     
     // Toggle movement inversion
     bIsMovementInverted = !bIsMovementInverted;
