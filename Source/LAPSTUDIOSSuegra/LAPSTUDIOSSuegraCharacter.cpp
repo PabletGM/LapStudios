@@ -181,10 +181,7 @@ void ALAPSTUDIOSSuegraCharacter::RevertMovementInversion()
     
     // Toggle movement inversion
     bIsMovementInverted = !bIsMovementInverted;
-    
-   
-    
-   
+     
 }
 
 float ALAPSTUDIOSSuegraCharacter::GetRandomFloatBetween10And45()

@@ -60,9 +60,9 @@ protected:
     UPROPERTY() FTimerHandle MovementRevertTimerHandle;
 
     // Function to invert movement
-    void InvertMovement1();
+    UFUNCTION(BlueprintCallable) void InvertMovement1();
 
-    void InvertMovement2();
+    UFUNCTION(BlueprintCallable) void InvertMovement2();
 
     // Function to revert movement inversion
     void RevertMovementInversion();
